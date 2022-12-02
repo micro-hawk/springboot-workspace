@@ -10,16 +10,14 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.io.File;
-import java.util.Objects;
 
 @Service
 @Slf4j
 public class EmailSenderServiceImpl implements EmailSenderService {
+
     @Autowired
     private JavaMailSender javaMailSender;
 
@@ -55,24 +53,4 @@ public class EmailSenderServiceImpl implements EmailSenderService {
         javaMailSender.send(mimeMessage);
         log.info("Mail with Attachment sent successfully !");
     }
-
-//    public void sendMailWithAttachment(String toEmail,
-//                                       String body,
-//                                       String subject,
-//                                       String attachment) throws MessagingException {
-//
-//        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-//        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
-//
-//        mimeMessageHelper.setFrom(userMail);
-//        mimeMessageHelper.setSubject(subject);
-//        mimeMessageHelper.setText(body);
-//
-//        FileSystemResource fileSystem = new FileSystemResource(attachment);
-//
-//        mimeMessageHelper.addAttachment(Objects.requireNonNull(fileSystem.getFilename()), fileSystem);
-//
-//        javaMailSender.send(mimeMessage);
-//        log.info("Mail with Attachment sent successfully !");
-//    }
 }
