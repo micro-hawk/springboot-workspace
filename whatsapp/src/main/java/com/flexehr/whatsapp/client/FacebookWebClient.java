@@ -3,16 +3,11 @@ package com.flexehr.whatsapp.client;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.WebClient.RequestBodySpec;
-import org.springframework.web.reactive.function.client.WebClient.RequestHeadersSpec;
-import org.springframework.web.reactive.function.client.WebClient.ResponseSpec;
-import org.springframework.web.reactive.function.client.WebClient.UriSpec;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -23,32 +18,21 @@ public class FacebookWebClient {
     @Qualifier(value = "FacebookWebClient")
     WebClient client;
 
-    private String token="";
+    String token = "";
+    String jsonPayload = "{\"messaging_product\":\"whatsapp\",\"to\":\"917043400140\",\"type\":\"text\",\"text\":{\"preview_url\":false,\"body\":\"Yeh hai InteliJ\"}}";
 
-    public Mono<String> sendWhatsappMessage() {
-        UriSpec<RequestBodySpec> uriSpec = client.post();
-        RequestBodySpec bodySpec = uriSpec.uri(
-            uriBuilder -> uriBuilder.pathSegment("/").build());
-
-        RequestHeadersSpec<?> headersSpec = bodySpec.body(
-            BodyInserters.fromPublisher(Mono.just("data"), String.class)
-        );
-        ResponseSpec responseSpec = headersSpec.header(
-                HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-            .header(HttpHeaders.AUTHORIZATION,
-                "")
+//    String jsonPayload = "{\"messaging_product\":\"whatsapp\",\"recipient_type\":\"individual\",\"to\":\"917043400140\",\"type\":\"template\",\"template\":{\"name\":\"TEMPLATE_NAME\",\"language\":{\"code\":\"LANGUAGE_AND_LOCALE_CODE\"},\"components\":[{\"type\":\"body\",\"parameters\":[{\"type\":\"text\",\"text\":\"text-string\"},{\"type\":\"currency\",\"currency\":{\"fallback_value\":\"VALUE\",\"code\":\"USD\",\"amount_1000\":\"NUMBER\"}},{\"type\":\"date_time\",\"date_time\":{\"fallback_value\":\"DATE\"}}]}]}}";
+    public Mono<String> sendHelloMessage() {
+        return client.post().uri("/")
             .accept(MediaType.APPLICATION_JSON)
-            .retrieve();
-
-        return headersSpec.exchangeToMono(response -> {
-            if (response.statusCode().equals(HttpStatus.OK)) {
-                return response.bodyToMono(String.class);
-            } else if (response.statusCode().is4xxClientError()) {
-                return Mono.just("Error response");
-            } else {
-                return response.createException()
-                    .flatMap(Mono::error);
-            }
-        });
+            .header("Authorization", "Bearer " + token)
+            .body(BodyInserters.fromValue(jsonPayload))
+            .exchangeToMono(clientResponse -> {
+                if (clientResponse.statusCode().isError()) {
+                    return clientResponse.bodyToMono(String.class);
+                }
+                return clientResponse.bodyToMono(new ParameterizedTypeReference<String>() {
+                });
+            });
     }
 }

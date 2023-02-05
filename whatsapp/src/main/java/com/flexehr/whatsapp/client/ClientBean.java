@@ -17,7 +17,13 @@ import reactor.netty.http.client.HttpClient;
 @Configuration
 public class ClientBean {
 
-    String fbClientUrl="https://graph.facebook.com/v15.0/{CLIENT_ID}/messages";
+    private String whatsappVersion = "v15.0";
+    private final String myNumberId = "";
+    private final String testNumberId = "";
+
+    String fbClientUrl = "https://graph.facebook.com/" + whatsappVersion + "/" + testNumberId + "/messages";
+//    String fbClientUrl = "https://graph.facebook.com/v15.0/104164899262351/messages";
+
     @Bean(name = "FacebookWebClient")
     public WebClient facebookWebClient() {
         HttpClient httpClient = HttpClient.create()
