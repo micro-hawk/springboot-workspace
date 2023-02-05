@@ -23,6 +23,8 @@ public class FacebookWebClient {
     @Qualifier(value = "FacebookWebClient")
     WebClient client;
 
+    private String token="";
+
     public Mono<String> sendWhatsappMessage() {
         UriSpec<RequestBodySpec> uriSpec = client.post();
         RequestBodySpec bodySpec = uriSpec.uri(
@@ -34,8 +36,7 @@ public class FacebookWebClient {
         ResponseSpec responseSpec = headersSpec.header(
                 HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
             .header(HttpHeaders.AUTHORIZATION,
-                "EAAbeC7Y9lHsBAMaFjtk2214PnylVC4eXbDvouLhMz2wzVS7T4a0GpFAJFlePIc6GRD2ZAQ9QwrwMBAecaugCKhJSdiUvGa"
-                    + "PyqstN1gVCFFdn1Pk7RTyaRbM5FtGc9jwNHfHKD5mfd1rJssJSOHs8b4PjDVHd0yoQjMLDZAhoyWpjizfHq4qtbbE3OtYlndrE2Yp3v9xwZDZD")
+                "")
             .accept(MediaType.APPLICATION_JSON)
             .retrieve();
 
