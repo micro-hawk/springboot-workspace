@@ -17,7 +17,7 @@ import reactor.netty.http.client.HttpClient;
 @Configuration
 public class ClientBean {
 
-    private String whatsappVersion = "v15.0";
+    private final String whatsappVersion = "v15.0";
     private final String myNumberId = "";
     private final String testNumberId = "";
 
