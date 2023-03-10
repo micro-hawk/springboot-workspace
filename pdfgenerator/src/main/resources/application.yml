@@ -1,0 +1,25 @@
+spring:
+  main:
+    banner-mode: "off"
+  hibernate:
+    hbm2ddl:
+      auto: create-drop
+    dialect: org.hibernate.dialect.H2Dialect
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+
+  h2:
+    console:
+      enabled: true
+logging:
+  level:
+    org:
+      springframework: ERROR
+
+
