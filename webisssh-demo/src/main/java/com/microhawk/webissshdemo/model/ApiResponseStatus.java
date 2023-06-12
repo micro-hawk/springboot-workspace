@@ -24,7 +24,8 @@ public enum ApiResponseStatus {
     INVALID_CREDENTIALS(1022, "Invalid Credentials"),
     RESET_TOKEN_INVALID(1023, "Password ResetToken is Invalid"),
     RESET_TOKEN_EXPIRED(1024, "Password ResetToken has Expired"),
-    INVALID_ACCESS_TOKEN(1025, "INVALID_ACCESS_TOKEN");
+    INVALID_ACCESS_TOKEN(1025, "INVALID_ACCESS_TOKEN"),
+    STUDENT_NOT_FOUND(4001, "STUDENT_NOT_FOUND");
     private static final Map<String, ApiResponseStatus> ENUM_MAP;
 
     static {
