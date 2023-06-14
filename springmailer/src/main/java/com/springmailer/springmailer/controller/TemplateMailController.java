@@ -1,7 +1,7 @@
 package com.springmailer.springmailer.controller;
 
-import com.springmailer.springmailer.model.TemplateMailResponse;
-import com.springmailer.springmailer.request.TemplateMailRequest;
+import com.springmailer.springmailer.model.dto.TemplateMailResponse;
+import com.springmailer.springmailer.model.request.TemplateMailRequest;
 import com.springmailer.springmailer.service.api.TemplateMailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

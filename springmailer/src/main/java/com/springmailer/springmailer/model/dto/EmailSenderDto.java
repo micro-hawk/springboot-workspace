@@ -1,4 +1,4 @@
-package com.springmailer.springmailer.model;
+package com.springmailer.springmailer.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

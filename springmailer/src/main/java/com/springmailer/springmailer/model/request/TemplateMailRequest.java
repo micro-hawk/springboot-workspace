@@ -1,4 +1,4 @@
-package com.springmailer.springmailer.request;
+package com.springmailer.springmailer.model.request;
 
 import lombok.Data;
 

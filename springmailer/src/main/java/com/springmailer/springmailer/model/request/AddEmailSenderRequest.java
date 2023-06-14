@@ -1,5 +1,7 @@
-package com.springmailer.springmailer.request;
+package com.springmailer.springmailer.model.request;
 
+import com.springmailer.springmailer.model.vo.AttachmentVo;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,4 +14,5 @@ public class AddEmailSenderRequest {
     private String subject;
     private String body;
     private String attachment;
+    private List<AttachmentVo> attachments;
 }

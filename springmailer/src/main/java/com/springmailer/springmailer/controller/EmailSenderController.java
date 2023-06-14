@@ -1,7 +1,8 @@
 package com.springmailer.springmailer.controller;
 
-import com.springmailer.springmailer.request.AddEmailSenderRequest;
+import com.springmailer.springmailer.model.request.AddEmailSenderRequest;
 import com.springmailer.springmailer.service.api.EmailSenderService;
+import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,6 +12,7 @@ import javax.mail.MessagingException;
 
 @RestController
 public class EmailSenderController {
+
     @Autowired
     private EmailSenderService emailSenderService;
 
@@ -22,5 +24,10 @@ public class EmailSenderController {
     @PostMapping(value = "/mail-add-attachment")
     public void sendMailWithAttachment(@RequestBody AddEmailSenderRequest request) throws MessagingException {
         emailSenderService.sendMailWithAttachment(request);
+    }
+
+    @PostMapping(value = "/mail-with-multi-attachments")
+    public void sendEmailWithAttachments(@RequestBody AddEmailSenderRequest emailRequest) throws IOException {
+        emailSenderService.sendEmailWithAttachments(emailRequest);
     }
 }

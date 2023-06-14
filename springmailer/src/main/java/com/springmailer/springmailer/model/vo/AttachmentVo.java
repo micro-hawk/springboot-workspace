@@ -1,4 +1,4 @@
-package com.springmailer.springmailer.model;
+package com.springmailer.springmailer.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TemplateMailResponse {
+public class AttachmentVo {
 
-    private String message;
-    private Boolean status;
+    private byte[] content;
+    private String filename;
 }

@@ -1,7 +1,7 @@
 package com.springmailer.springmailer.service.impl;
 
-import com.springmailer.springmailer.model.TemplateMailResponse;
-import com.springmailer.springmailer.request.TemplateMailRequest;
+import com.springmailer.springmailer.model.dto.TemplateMailResponse;
+import com.springmailer.springmailer.model.request.TemplateMailRequest;
 import com.springmailer.springmailer.service.api.TemplateMailService;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
