@@ -36,6 +36,7 @@ public class ReminderService {
     }
 
     private Mono<Boolean> sendReminder(MasterAppointment appointment) {
+        log.info("Sending reminder for MasterAppointment ID: {}", appointment.getMasterAppointmentId());
         return sendAppointmentDetailsWhatsappMessage(appointment)
             .subscribeOn(Schedulers.boundedElastic());
     }
@@ -44,10 +45,14 @@ public class ReminderService {
         return garudaClient.sendAppointmentDetailsWhatsappMessage(
                 whatsappAppointmentMessageRequestBuild(masterAppointment))
             .map(response -> {
+                log.info("WhatsApp message sent for MasterAppointment ID: {}",
+                    masterAppointment.getMasterAppointmentId());
                 // Modify this based on the actual response from the Garuda service
                 return true; // Success
             })
             .onErrorResume(throwable -> {
+                log.error("Error sending WhatsApp message for MasterAppointment ID: {}",
+                    masterAppointment.getMasterAppointmentId(), throwable);
                 // Log or handle the error and return false to indicate failure
                 return Mono.just(false);
             });
@@ -57,7 +62,7 @@ public class ReminderService {
         MasterAppointment masterAppointment) {
         return WhatsappAppointmentBookingTemplateRequest
             .builder()
-            .toRecipient("917043400140")
+            .toRecipient("7043400140")
             .patientFirstName("Vikas Das")
             .hospitalName(masterAppointment.getHospitalName())
             .appointmentStartTime(CalendarOperations.convertEpochIntoDate(masterAppointment.getStartTime()))

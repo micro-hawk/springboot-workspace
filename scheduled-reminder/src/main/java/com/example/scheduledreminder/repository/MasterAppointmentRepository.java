@@ -28,4 +28,8 @@ public class MasterAppointmentRepository {
 
         return mongoTemplate.find(query, MasterAppointment.class);
     }
+
+    public Flux<MasterAppointment> getAllAppointments() {
+        return mongoTemplate.findAll(MasterAppointment.class);
+    }
 }
